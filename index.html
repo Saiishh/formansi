@@ -296,23 +296,23 @@
         </div>
 
         <div class="section">
-            <h2 class="section-title">⏰ It's Our Day!</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 15px;">Happy 4-Month Anniversary, my love! 🎉</p>
+            <h2 class="section-title">⏰ Counting Down To Our Next Milestone</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 15px;" id="countdownMessage">Our 4-Month Anniversary 🎉</p>
             <div class="countdown">
                 <div class="countdown-item">
-                    <div class="countdown-value" id="days">❤️</div>
+                    <div class="countdown-value" id="days">0</div>
                     <div class="countdown-label">Days</div>
                 </div>
                 <div class="countdown-item">
-                    <div class="countdown-value" id="hours">❤️</div>
+                    <div class="countdown-value" id="hours">0</div>
                     <div class="countdown-label">Hours</div>
                 </div>
                 <div class="countdown-item">
-                    <div class="countdown-value" id="minutes">❤️</div>
+                    <div class="countdown-value" id="minutes">0</div>
                     <div class="countdown-label">Minutes</div>
                 </div>
                 <div class="countdown-item">
-                    <div class="countdown-value" id="seconds">❤️</div>
+                    <div class="countdown-value" id="seconds">0</div>
                     <div class="countdown-label">Seconds</div>
                 </div>
             </div>
@@ -322,6 +322,14 @@
             <h2 class="section-title">A Note of Gratitude ❤️</h2>
             <div class="health-reminder">
                 Mansi, your messages before my football matches mean the world to me. Your care and worry show me how much you love me, and it makes me feel like the luckiest guy on Earth. Thank you for always looking out for me. 🥰
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🌸 Caring For You</h2>
+            <div class="health-reminder">
+                💖 My darling, remember to take extra care of yourself during <strong>Oct 1-5</strong> 🌸<br>
+                I'll be here with your favorite chocolate, warm hugs, and all the love you need. You're the strongest woman I know! 💪💕
             </div>
         </div>
 
@@ -403,41 +411,37 @@
 
         // Countdown timer (now a celebration)
         function updateCountdown() {
-            const targetDate = new Date('2025-09-19T00:00:00');
             const now = new Date();
-            const difference = targetDate.getTime() - now.getTime();
+            const anniversaryDay = 19;
+            const anniversaryMonth = 8; // 8 is for September
             
-            // Check if today is the anniversary
-            if (now.getDate() === 19 && now.getMonth() === 8) { // 8 is for September
+            const isAnniversary = now.getDate() === anniversaryDay && now.getMonth() === anniversaryMonth;
+            
+            if (isAnniversary) {
+                document.getElementById('countdownMessage').textContent = "Happy 4-Month Anniversary, my love! 🎉";
                 document.getElementById('days').textContent = '❤️';
                 document.getElementById('hours').textContent = '❤️';
                 document.getElementById('minutes').textContent = '❤️';
                 document.getElementById('seconds').textContent = '❤️';
-                document.querySelector('.section-title.countdown').textContent = "Happy Anniversary!";
-                document.querySelector('.countdown + p').textContent = "Happy 4-Month Anniversary, my love! 🎉";
-            } else if (difference > 0) {
+                document.querySelector('.section-title.countdown').textContent = "It's Our Day!";
+            } else {
+                let targetDate = new Date(now.getFullYear(), anniversaryMonth, anniversaryDay, 0, 0, 0);
+                if (now > targetDate) {
+                    targetDate = new Date(now.getFullYear(), now.getMonth() + 1, anniversaryDay, 0, 0, 0);
+                }
+                const difference = targetDate.getTime() - now.getTime();
+
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
+                document.getElementById('countdownMessage').textContent = "Our 4-Month Anniversary 🎉";
                 document.getElementById('days').textContent = days;
                 document.getElementById('hours').textContent = hours;
                 document.getElementById('minutes').textContent = minutes;
                 document.getElementById('seconds').textContent = seconds;
-            } else {
-                // If the day has passed, count down to the next month
-                const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 19, 0, 0, 0);
-                const nextDifference = nextMonth.getTime() - now.getTime();
-                const days = Math.floor(nextDifference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((nextDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((nextDifference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((nextDifference % (1000 * 60)) / 1000);
-
-                document.getElementById('days').textContent = days;
-                document.getElementById('hours').textContent = hours;
-                document.getElementById('minutes').textContent = minutes;
-                document.getElementById('seconds').textContent = seconds;
+                document.querySelector('.section-title.countdown').textContent = "⏰ Counting Down To Our Next Milestone";
             }
         }
 
@@ -445,28 +449,6 @@
         showRandomLoveNote();
         updateCountdown();
         setInterval(updateCountdown, 1000);
-                // Health reminder for her period cycle (Oct 1–5)
-        function showHealthReminder() {
-            const today = new Date();
-            const reminderDiv = document.querySelector('.health-reminder');
-
-            // Check if today is between Oct 1 and Oct 5, 2025
-            if (today.getFullYear() === 2025 && today.getMonth() === 9 && today.getDate() >= 1 && today.getDate() <= 5) {
-                reminderDiv.textContent = "💖 Mansi, take extra care of yourself from Oct 1–5 🌸 I'm always with you in spirit!";
-            }
-        }
-
-        // Initialize on load
-        window.onload = function() {
-            showRandomLoveNote();
-            updateCountdown();
-            showHealthReminder();
-            setInterval(updateCountdown, 1000);
-        };
-    </script>
-</body>
-</html>
-
     </script>
 </body>
 </html>
